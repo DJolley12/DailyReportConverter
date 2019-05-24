@@ -28,13 +28,16 @@ namespace DailyReportConverter.Classes
                 }
                 else if (data[i].Contains("RW Interfacility") || data[i].Contains("RW Scene")
                 || data[i].Contains("FW Interfacility") || data[i].Contains("FW Scene")
-                || data[i].Contains("Ground") || data[i].Contains("SAR") || data[i].Contains("RF Interfacility (FW)")
+                || data[i].Contains("Ground") || data[i].Contains("RF Interfacility (FW)")
                 || data[i].Contains("SAR to Hosp"))
                 {
-                    int point = i;
-                    int baseInt = cleanData(data, i);
-                    Flight flight = Flight.ReturnFlight(data.Skip(point).ToArray(), baseInt);
-                    flights.Add(flight);
+                    if (!data[i - 1].Contains("SAR"))
+                    {
+                        int point = i;
+                        int baseInt = cleanData(data, i);
+                        Flight flight = Flight.ReturnFlight(data.Skip(point).ToArray(), baseInt);
+                        flights.Add(flight);
+                    }
                 }
             }
             return flights;
