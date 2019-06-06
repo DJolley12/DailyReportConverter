@@ -29,9 +29,9 @@ namespace DailyReportConverter.Classes
                 else if (data[i].Contains("RW Interfacility") || data[i].Contains("RW Scene")
                 || data[i].Contains("FW Interfacility") || data[i].Contains("FW Scene")
                 || data[i].Contains("Ground") || data[i].Contains("RF Interfacility (FW)")
-                || data[i].Contains("SAR to Hosp"))
+                || data[i].Contains("SAR") || data[i].Contains("SAR To Hosp"))
                 {
-                    if (!data[i - 1].Contains("SAR"))
+                    if (!data[i - 2].Contains("SAR"))
                     {
                         int point = i;
                         int baseInt = cleanData(data, i);
@@ -50,7 +50,7 @@ namespace DailyReportConverter.Classes
                 || !data[j].Equals("Lander") || !data[j].Equals("Riverton") 
                 || !data[j].Equals("Moab") || !data[j].Equals("Steamboat Springs") 
                 || !data[j].Equals("Rawlins") || !data[j].Equals("Craig") 
-                || !data[j].Equals("Los Alamos") || !data[j].Equals("Glenwood") 
+                || !data[j].Equals("Los Alamos") || !data[j].Equals("Glenwood Springs") 
                 || !data[j].Equals("Fort Mohave") || !data[j].Equals("Pocatello"))
             {
                 for (int p = j - 5; p < i + 15; p++)
@@ -59,7 +59,7 @@ namespace DailyReportConverter.Classes
                 || data[p].Equals("Lander") || data[p].Equals("Riverton")
                 || data[p].Equals("Moab") || data[p].Equals("Steamboat Springs")
                 || data[p].Equals("Rawlins") || data[p].Equals("Craig")
-                || data[p].Equals("Los Alamos") || data[p].Equals("Glenwood")
+                || data[p].Equals("Los Alamos") || data[p].Equals("Glenwood Springs")
                 || data[p].Equals("Fort Mohave") || data[p].Equals("Pocatello"))
                     {
                         j = p - i;
