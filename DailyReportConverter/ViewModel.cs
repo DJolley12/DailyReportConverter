@@ -12,6 +12,7 @@ namespace DailyReportConverter
         private static CSVParser csvParser = new CSVParser();
         private static CSVReturn csvReturn = new CSVReturn();
         private static List<Flight> flights { get; set; }
+        public static List<IncompleteFlight> IncompleteFlights = new List<IncompleteFlight>();
         private static List<BaseTotal> baseTotals { get; set; }
         private StreamReader streamReader { get; set; }
         private string[] data { get; set; }
@@ -97,7 +98,7 @@ namespace DailyReportConverter
         {
             using (StreamReader streamReader = new StreamReader(path))
             {
-                data = csvParser.FromLine(streamReader.ReadToEnd());
+                data = csvParser.SplitData(streamReader.ReadToEnd());
             }
             return data;
         }
@@ -111,7 +112,47 @@ namespace DailyReportConverter
                     if (ofd.CheckFileExists)
                     {
                         streamReader = new StreamReader(ofd.FileName);
-                        data = csvParser.FromLine(streamReader.ReadToEnd());
+                        data = csvParser.SplitData(streamReader.ReadToEnd());
+                    }
+                    else
+                    {
+                        MessageBox.Show(new Exception("File " + ofd.FileName + "path does not exist, ya dingus!").ToString(), "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                return data;
+            }
+        }
+
+        public string[] OpenFileWithRegularExpressionsParser()
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "CSV files|*.csv", ValidateNames = true, Multiselect = false })
+            {
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    if (ofd.CheckFileExists)
+                    {
+                        streamReader = new StreamReader(ofd.FileName);
+                        data = csvParser.ParseWithRegularExpressions(streamReader.ReadToEnd());
+                    }
+                    else
+                    {
+                        MessageBox.Show(new Exception("File " + ofd.FileName + "path does not exist, ya dingus!").ToString(), "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                return data;
+            }
+        }
+
+        public string[] OpenFileWithRegularExpressionsParserByLine()
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "CSV files|*.csv", ValidateNames = true, Multiselect = false })
+            {
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    if (ofd.CheckFileExists)
+                    {
+                        streamReader = new StreamReader(ofd.FileName);
+                        data = csvParser.ParseWithRegularExpressionsByLine(streamReader.ReadToEnd());
                     }
                     else
                     {
@@ -213,9 +254,27 @@ namespace DailyReportConverter
             csvReturn.OpenFile();
         }
 
-        public void ParseFileToFlightList(string[] dataArr)
+        public void ParseToFlightList(string[] dataArr)
         {
             flights = csvParser.ParseDataToFlightList(dataArr);
+        }
+
+        public void ParseToFlightListByLine(string[] dataArr)
+        {
+            flights = csvParser.ParseDataToFlightListByLine(dataArr);
+        }
+
+        public void CheckIncompleteFlights()
+        {
+            if (IncompleteFlights.Count != 0)
+            {
+                string flightNumbers = "";
+                foreach (var incompleteFlight in IncompleteFlights)
+                {
+                    flightNumbers += "\n" + incompleteFlight.FlightNumber;
+                }
+                MessageBox.Show(new Exception("The following flights do not have bases associated with them: " + flightNumbers).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void FlightListToBaseTotalList()

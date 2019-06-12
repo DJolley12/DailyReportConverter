@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\BaseTotal.cs" />
+    <Compile Include="Classes\IncompleteFlight.cs" />
     <Compile Include="Classes\UpdateChecker.cs" />
     <Compile Include="ConfigWindow.cs">
       <SubType>Form</SubType>

@@ -4,42 +4,98 @@ namespace DailyReportConverter.Classes
 {
     public static class FlightPropertiesExtensions
     {
+        //public static Base ReturnBaseType(string baseString)
+        //{
+        //    switch (baseString)
+        //    {
+        //        case "Page":
+        //            return Base.Page;
+        //        case "Vernal":
+        //            return Base.Vernal;
+        //        case "Lander":
+        //            return Base.Lander;
+        //        case "Riverton":
+        //            return Base.Riverton;
+        //        case "Moab":
+        //            return Base.Moab;
+        //        case "Steamboat Springs":
+        //            return Base.Steamboat;
+        //        case "Rawlins":
+        //            return Base.Rawlins;
+        //        case "Craig":
+        //            return Base.Craig;
+        //        case "Los Alamos":
+        //            return Base.LosAlamos;
+        //        case "Glenwood Springs":
+        //            return Base.Glenwood;
+        //        case "Fort Mohave":
+        //            return Base.FortMohave;
+        //        case "Pocatello":
+        //            return Base.Pocatello;
+        //        default:
+        //            throw new Exception("Unrecognized base: " + baseString);
+        //    }
+        //}
+
         public static Base ReturnBaseType(string baseString)
         {
-            switch (baseString)
+            Base myBase = new Base();
+            if (baseString.Contains("Page"))
             {
-                case "Page":
-                    return Base.Page;
-                case "Vernal":
-                    return Base.Vernal;
-                case "Lander":
-                    return Base.Lander;
-                case "Riverton":
-                    return Base.Riverton;
-                case "Moab":
-                    return Base.Moab;
-                case "Steamboat Springs":
-                    return Base.Steamboat;
-                case "Rawlins":
-                    return Base.Rawlins;
-                case "Craig":
-                    return Base.Craig;
-                case "Los Alamos":
-                    return Base.LosAlamos;
-                case "Glenwood Springs":
-                    return Base.Glenwood;
-                case "Fort Mohave":
-                    return Base.FortMohave;
-                case "Pocatello":
-                    return Base.Pocatello;
-                default:
-                    throw new Exception("Unrecognized base: " + baseString);
+                myBase = Base.Page;
             }
+            else if (baseString.Contains("Vernal"))
+            {
+                myBase = Base.Vernal;
+            }
+            else if (baseString.Contains("Lander"))
+            {
+                myBase = Base.Lander;
+            }
+            else if (baseString.Contains("Riverton"))
+            {
+                myBase = Base.Riverton;
+            }
+            else if (baseString.Contains("Moab"))
+            {
+                myBase = Base.Moab;
+            }
+            else if (baseString.Contains("Steamboat Springs"))
+            {
+                myBase = Base.Steamboat;
+            }
+            else if (baseString.Contains("Rawlins"))
+            {
+                myBase = Base.Rawlins;
+            }
+            else if (baseString.Contains("Craig"))
+            {
+                myBase = Base.Craig;
+            }
+            else if (baseString.Contains("Los Alamos"))
+            {
+                myBase = Base.LosAlamos;
+            }
+            else if (baseString.Contains("Glenwood Springs"))
+            {
+                myBase = Base.Glenwood;
+            }
+            else if (baseString.Contains("Fort Mohave"))
+            {
+                myBase = Base.FortMohave;
+            }
+            else if (baseString.Contains("Pocatello"))
+            {
+                myBase = Base.Pocatello;
+            }
+            else
+            {
+                throw new Exception("Base not recognized: " + baseString);
+            }
+            return myBase;
         }
 
-        
-
-        public static Status ReturnStatusType(string statusString, string callString)
+        public static Status ReturnStatusType(string statusString)
         {
             Status status = new Status();
             if (statusString.Contains("Mission Complete"))
@@ -58,7 +114,7 @@ namespace DailyReportConverter.Classes
             {
                 status = Status.Missed;
             }
-            else if (statusString.Contains("No Transport") || statusString.Contains("Abort") || statusString.Equals("SAR"))
+            else if (statusString.Contains("No Transport") || statusString.Contains("Abort") || statusString.Contains("SAR"))
             {
                 status = Status.SAR_NT_AT;
             }
@@ -93,6 +149,10 @@ namespace DailyReportConverter.Classes
                 callType = CallType.Ground;
             }
             else if (callString.Contains("RF Interfacility (FW)"))
+            {
+                callType = CallType.FW;
+            }
+            else if (callString.Contains("RF Scene (FW)"))
             {
                 callType = CallType.FW;
             }

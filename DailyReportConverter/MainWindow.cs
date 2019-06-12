@@ -25,7 +25,9 @@ namespace DailyReportConverter
 
         private void openButton_Click(object sender, EventArgs e)
         {
-            data = viewModel.OpenFile();
+            //data = viewModel.OpenFile();
+            //data = viewModel.OpenFileWithRegularExpressionsParser();
+            data = viewModel.OpenFileWithRegularExpressionsParserByLine();
         }
 
         private void configMenuButton_Click(object sender, EventArgs e)
@@ -42,7 +44,8 @@ namespace DailyReportConverter
         {
             panel1.Show();
             progressBar1.PerformStep();
-            viewModel.ParseFileToFlightList(data);
+            //viewModel.ParseToFlightList(data);
+            viewModel.ParseToFlightListByLine(data);
             progressBar1.PerformStep();
             viewModel.AssignPath(path);
             progressBar1.PerformStep();
@@ -53,6 +56,7 @@ namespace DailyReportConverter
             label1.Text = "Writing data to excel file...";
             dataGridViewResultDisplay.DataSource = viewModel.ReturnFormattedTable(dataGridViewResultDisplay);
             progressBar1.PerformStep();
+            viewModel.CheckIncompleteFlights();
             panel1.Hide();
             Process.Start(Settings.Default["TemplateFilePath"].ToString());
         }

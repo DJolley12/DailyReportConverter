@@ -63,11 +63,20 @@ namespace DailyReportConverter.Classes
             return new Flight()
             {
                 MissionCallType = FlightPropertiesExtensions.ReturnCallType(data[0].ToString()),
-                MissionStatus = FlightPropertiesExtensions.ReturnStatusType(data[2].ToString(), data[0].ToString()),
+                MissionStatus = FlightPropertiesExtensions.ReturnStatusType(data[2].ToString()),
                 ProfitCenter = FlightPropertiesExtensions.ReturnBaseType(data[baseInt].ToString())
             };
         }
 
+        public static Flight ReturnFlight(string[] data, int callTypeInt, int statusInt, int baseInt)
+        {
+            return new Flight()
+            {
+                MissionCallType = FlightPropertiesExtensions.ReturnCallType(data[callTypeInt].ToString()),
+                MissionStatus = FlightPropertiesExtensions.ReturnStatusType(data[statusInt].ToString()),
+                ProfitCenter = FlightPropertiesExtensions.ReturnBaseType(data[baseInt].ToString())
+            };
+        }
     }
 
     public enum CallType
