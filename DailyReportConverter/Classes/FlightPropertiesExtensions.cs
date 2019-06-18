@@ -118,6 +118,10 @@ namespace DailyReportConverter.Classes
             {
                 status = Status.SAR_NT_AT;
             }
+            else if (statusString.Contains("Inquiry Only"))
+            {
+                status = Status.InquiryOnly;
+            }
             else
             {
                 throw new Exception("Status type not recognized: " + statusString);

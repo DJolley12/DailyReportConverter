@@ -92,7 +92,8 @@ namespace DailyReportConverter.Classes
         Turndown,
         Missed,
         Cancel,
-        SAR_NT_AT
+        SAR_NT_AT,
+        InquiryOnly
     }
 
     public enum Base
